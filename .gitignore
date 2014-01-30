@@ -1,0 +1,11 @@
+dea
+.idea_modules
+project/project
+atlassian-ide-plugin.xml
+*.iml
+test-reports
+.cache
+.classpath
+.project
+.settings
+*.swp
