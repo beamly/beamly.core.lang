@@ -23,3 +23,5 @@ site.includeScaladoc()
 autoAPIMappings := true
 
 apiURL := Some(url("http://zeebox.github.io/zeebox.core.lang/latest/api/"))
+
+javacOptions in (Compile,doc) ++= Seq("-linksource")
