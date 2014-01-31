@@ -17,3 +17,5 @@ site.settings
 ghpages.settings
 
 git.remoteRepo := "git@github.com:zeebox/zeebox.core.lang.git"
+
+site.includeScaladoc()
