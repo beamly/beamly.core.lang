@@ -19,3 +19,7 @@ ghpages.settings
 git.remoteRepo := "git@github.com:zeebox/zeebox.core.lang.git"
 
 site.includeScaladoc()
+
+autoAPIMappings := true
+
+apiURL := Some(url("http://zeebox.github.io/zeebox.core.lang/latest/api/"))
