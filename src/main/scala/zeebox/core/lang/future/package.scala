@@ -16,7 +16,7 @@
 **/
 
 
-package zeebox.core.lang
+package zeebox.core.lang.future
 
 import scala.language.implicitConversions
 import scala.language.experimental.macros
