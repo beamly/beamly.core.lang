@@ -15,7 +15,7 @@
 
 **/
 
-package zeebox.core.lang.future
+package zeebox.core.lang.ref
 
 
 import java.lang.ref.SoftReference

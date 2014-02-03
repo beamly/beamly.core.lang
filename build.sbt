@@ -12,6 +12,10 @@ scalaVersion := "2.10.3"
 
 libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-reflect" % _)
 
+libraryDependencies ++= Seq(
+  "org.specs2" %% "specs2" % "2.2.2" % "test"
+)
+
 site.settings
 
 ghpages.settings

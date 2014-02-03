@@ -28,7 +28,7 @@ import scala.util.{Failure, Success, Try}
 import scala.util.control.{NonFatal, NoStackTrace}
 import scala.reflect.macros.Context
 
-package object future {
+object `package` {
 
   case class FutureTimeoutException(duration: Duration) extends RuntimeException("Future has timed out after %s" format duration) with NoStackTrace
 

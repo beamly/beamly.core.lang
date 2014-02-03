@@ -20,8 +20,8 @@ package zeebox.core.lang
 
 import scala.concurrent.Future
 import scala.util.{Success, Failure}
-import com.zeebox.core.lang.TryToFuture._
-import com.zeebox.core.lang.future._
+import zeebox.core.lang.TryToFuture._
+import zeebox.core.lang.future._
 import org.specs2.mutable.Specification
 
 class TryToFutureTest extends Specification {
