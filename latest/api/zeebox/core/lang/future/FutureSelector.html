@@ -35,7 +35,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">FutureSelector</span><span class="result"> extends <span class="extype" name="java.lang.Thread">Thread</span></span>
+        <span class="name">FutureSelector</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
       </span>
       </h4>
       
@@ -43,7 +43,7 @@
 are returned through Akka Futures.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="java.lang.Thread">Thread</span>, <span class="extype" name="java.lang.Runnable">Runnable</span>, <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
         
 
@@ -61,7 +61,7 @@ are returned through Akka Futures.
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="zeebox.core.lang.future.FutureSelector"><span>FutureSelector</span></li><li class="in" name="java.lang.Thread"><span>Thread</span></li><li class="in" name="java.lang.Runnable"><span>Runnable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="zeebox.core.lang.future.FutureSelector"><span>FutureSelector</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -90,7 +90,7 @@ are returned through Akka Futures.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">FutureSelector</span><span class="params">(<span name="sleepTime">sleepTime: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.duration.Duration" class="extype" target="_top">Duration</a></span>)</span>
+        <span class="name">FutureSelector</span><span class="params">(<span name="sleepTime">sleepTime: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.duration.Duration" class="extype" target="_top">Duration</a> = <span class="defval" name="scala.concurrent.duration.Duration.apply(1, scala.concurrent.duration.`package`.MILLISECONDS)">...</span></span>)</span>
       </span>
       </h4>
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">sleepTime</dt><dd class="cmt"><p>The duration that the selector will wait between each iteration
@@ -195,20 +195,7 @@ are returned through Akka Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="java.lang.Thread#checkAccess" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="checkAccess():Unit"></a>
-      <a id="checkAccess():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">checkAccess</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
       <h4 class="signature">
@@ -220,7 +207,7 @@ are returned through Akka Futures.
         <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>Thread → AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -285,113 +272,6 @@ are returned through Akka Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="java.lang.Thread#getContextClassLoader" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getContextClassLoader():ClassLoader"></a>
-      <a id="getContextClassLoader():ClassLoader"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getContextClassLoader</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.ClassLoader">ClassLoader</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@CallerSensitive</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="java.lang.Thread#getId" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getId():Long"></a>
-      <a id="getId():Long"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getId</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Long" class="extype" target="_top">Long</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#getName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getName():String"></a>
-      <a id="getName():String"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getName</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#getPriority" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getPriority():Int"></a>
-      <a id="getPriority():Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getPriority</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Int" class="extype" target="_top">Int</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#getStackTrace" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getStackTrace():Array[StackTraceElement]"></a>
-      <a id="getStackTrace():Array[StackTraceElement]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getStackTrace</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Array" class="extype" target="_top">Array</a>[<span class="extype" name="java.lang.StackTraceElement">StackTraceElement</span>]</span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#getState" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getState():java.lang.Thread.State"></a>
-      <a id="getState():State"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getState</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Thread.State">State</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#getThreadGroup" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getThreadGroup():ThreadGroup"></a>
-      <a id="getThreadGroup():ThreadGroup"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getThreadGroup</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.ThreadGroup">ThreadGroup</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#getUncaughtExceptionHandler" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getUncaughtExceptionHandler():java.lang.Thread.UncaughtExceptionHandler"></a>
-      <a id="getUncaughtExceptionHandler():UncaughtExceptionHandler"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getUncaughtExceptionHandler</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Thread.UncaughtExceptionHandler">UncaughtExceptionHandler</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <a id="hashCode():Int"></a>
@@ -405,45 +285,6 @@ are returned through Akka Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="java.lang.Thread#interrupt" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="interrupt():Unit"></a>
-      <a id="interrupt():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">interrupt</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#isAlive" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isAlive():Boolean"></a>
-      <a id="isAlive():Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isAlive</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#isDaemon" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isDaemon():Boolean"></a>
-      <a id="isDaemon():Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isDaemon</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -457,76 +298,6 @@ are returned through Akka Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="java.lang.Thread#isInterrupted" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isInterrupted():Boolean"></a>
-      <a id="isInterrupted():Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">isInterrupted</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#join" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="join():Unit"></a>
-      <a id="join():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">join</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="java.lang.Thread#join" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="join(x$1:Long,x$2:Int):Unit"></a>
-      <a id="join(Long,Int):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">join</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="java.lang.Thread#join" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="join(x$1:Long):Unit"></a>
-      <a id="join(Long):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">join</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -566,87 +337,6 @@ are returned through Akka Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="zeebox.core.lang.future.FutureSelector#run" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="run():Unit"></a>
-      <a id="run():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">run</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="zeebox.core.lang.future.FutureSelector">FutureSelector</a> → Thread → Runnable</dd><dt>Annotations</dt><dd>
-                <span class="name">@tailrec</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="java.lang.Thread#setContextClassLoader" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setContextClassLoader(x$1:ClassLoader):Unit"></a>
-      <a id="setContextClassLoader(ClassLoader):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setContextClassLoader</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.ClassLoader">ClassLoader</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#setDaemon" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setDaemon(x$1:Boolean):Unit"></a>
-      <a id="setDaemon(Boolean):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setDaemon</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#setName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setName(x$1:String):Unit"></a>
-      <a id="setName(String):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setName</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#setPriority" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setPriority(x$1:Int):Unit"></a>
-      <a id="setPriority(Int):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setPriority</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
-    </li><li name="java.lang.Thread#setUncaughtExceptionHandler" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setUncaughtExceptionHandler(x$1:java.lang.Thread.UncaughtExceptionHandler):Unit"></a>
-      <a id="setUncaughtExceptionHandler(UncaughtExceptionHandler):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setUncaughtExceptionHandler</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Thread.UncaughtExceptionHandler">UncaughtExceptionHandler</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
     </li><li name="zeebox.core.lang.future.FutureSelector#shutdown" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="shutdown():Unit"></a>
       <a id="shutdown():Unit"></a>
@@ -660,7 +350,7 @@ are returned through Akka Futures.
       </span>
       </h4>
       
-    </li><li name="java.lang.Thread#start" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="zeebox.core.lang.future.FutureSelector#start" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="start():Unit"></a>
       <a id="start():Unit"></a>
       <h4 class="signature">
@@ -672,7 +362,7 @@ are returned through Akka Futures.
         <span class="name">start</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd></dl></div>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -686,7 +376,7 @@ are returned through Akka Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="java.lang.Thread#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
       <h4 class="signature">
@@ -698,7 +388,7 @@ are returned through Akka Futures.
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -761,126 +451,11 @@ are returned through Akka Futures.
 
         
 
-        <div id="values" class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="java.lang.Thread#countStackFrames" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="countStackFrames():Int"></a>
-      <a id="countStackFrames():Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">countStackFrames</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Int" class="extype" target="_top">Int</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li><li name="java.lang.Thread#destroy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="destroy():Unit"></a>
-      <a id="destroy():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">destroy</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li><li name="java.lang.Thread#resume" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resume():Unit"></a>
-      <a id="resume():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">resume</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li><li name="java.lang.Thread#stop" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="stop(x$1:Throwable):Unit"></a>
-      <a id="stop(Throwable):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">stop</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Throwable">Throwable</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li><li name="java.lang.Thread#stop" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="stop():Unit"></a>
-      <a id="stop():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">stop</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li><li name="java.lang.Thread#suspend" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="suspend():Unit"></a>
-      <a id="suspend():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">suspend</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Thread</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="java.lang.Thread">
-              <h3>Inherited from <span class="extype" name="java.lang.Thread">Thread</span></h3>
-            </div><div class="parent" name="java.lang.Runnable">
-              <h3>Inherited from <span class="extype" name="java.lang.Runnable">Runnable</span></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
