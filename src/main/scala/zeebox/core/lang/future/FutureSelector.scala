@@ -17,8 +17,7 @@
 
 package zeebox.core.lang.future
 
-import scala.concurrent.duration.Duration
-import java.util.concurrent.atomic.{AtomicBoolean, AtomicReference}
+import scala.concurrent.duration._
 import java.util.{concurrent => juc}
 import scala.concurrent.{ExecutionContext, Promise, Future}
 import annotation.tailrec
@@ -29,33 +28,72 @@ import annotation.tailrec
  *
  * @param sleepTime The duration that the selector will wait between each iteration
  */
-class FutureSelector(sleepTime: Duration) extends Thread {
-  private[this] val _futures = new AtomicReference(Map.empty[juc.Future[Any], Promise[Any]])
-  private[this] val _run = new AtomicBoolean(false)
-  private[this] val _shutdown = new AtomicBoolean(false)
-  private[this] val _sleepTimeMs = sleepTime.toMillis
+class FutureSelector(sleepTime: Duration = Duration(1, MILLISECONDS)) {
+  @volatile private[this] var _futures = Map.empty[juc.Future[Any], Promise[Any]]
+  @volatile private[this] var _shutdown = false
+  private[this] val sleepTimeMs = sleepTime.toMillis
+  private[this] val lock = new juc.locks.ReentrantLock()
+  private[this] val notEmpty = lock.newCondition()
 
-  @tailrec
-  private def add(jfuture: juc.Future[Any], promise: Promise[Any]) {
-    val futures = _futures.get
-    if (!_futures.compareAndSet(futures, futures + (jfuture -> promise)))
-      add(jfuture, promise)
-    else {
-      _run set true
-      synchronized(notifyAll())
+  private[this] val thread = new Thread {
+    @tailrec
+    override final def run() {
+      if (!_shutdown) {
+        val futures = _futures
+        if (futures.isEmpty) {
+          lock.lock()
+          try {
+            if (_futures.isEmpty)
+              notEmpty.await()
+          } finally {
+            lock.unlock()
+          }
+        } else {
+          val done = futures collect {
+            case (jfuture, promise) if jfuture.isDone =>
+              try promise success jfuture.get() catch {
+                case ex: juc.ExecutionException => promise failure ex
+              }
+              jfuture
+          }
+          if (done.nonEmpty)
+            remove(done)
+          else
+            Thread sleep sleepTimeMs
+        }
+        run()
+      }
     }
   }
 
-  @tailrec
+  private def add(jfuture: juc.Future[Any], promise: Promise[Any]) {
+    lock.lock()
+    try {
+      val futures = _futures
+      _futures = futures + (jfuture -> promise)
+      if (futures.isEmpty)
+        notEmpty.signalAll()
+    } finally {
+      lock.unlock()
+    }
+  }
+
   private def remove(done: Iterable[juc.Future[Any]]) {
-    val futures = _futures.get
-    if (!_futures.compareAndSet(futures, futures -- done))
-      remove(done)
+    lock.lock()
+    try {
+      _futures --= done
+    } finally {
+      lock.unlock()
+    }
+  }
+
+  def start() {
+    thread.start()
   }
 
   def shutdown() {
-    _shutdown set true
-    synchronized(notifyAll())
+    _shutdown = true
+    notEmpty.signalAll()
   }
 
   def apply[T](jfuture: juc.Future[T])(implicit executor: ExecutionContext): Future[T] = {
@@ -67,26 +105,4 @@ class FutureSelector(sleepTime: Duration) extends Thread {
     promise.future
   }
 
-  @tailrec
-  override final def run() {
-    if (!_shutdown.get) {
-      if (!_run.get) synchronized(wait())
-      val futures = _futures.get
-      if (futures.isEmpty) {
-        _run set false
-        if (_futures.get.nonEmpty) _run set true
-      } else {
-        val done = futures collect {
-          case (jfuture, promise) if jfuture.isDone =>
-            try promise success jfuture.get() catch { case ex: juc.ExecutionException => promise failure ex}
-            jfuture
-        }
-        if (done.nonEmpty)
-          remove(done)
-        else
-          Thread sleep _sleepTimeMs
-      }
-      run()
-    } else println("Shutting down FutureSelector")
-  }
 }
