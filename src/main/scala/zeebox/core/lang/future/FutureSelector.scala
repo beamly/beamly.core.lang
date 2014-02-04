@@ -29,13 +29,15 @@ import annotation.tailrec
  * @param sleepTime The duration that the selector will wait between each iteration
  */
 class FutureSelector(sleepTime: Duration = Duration(1, MILLISECONDS)) {
-  @volatile private[this] var _futures = Map.empty[juc.Future[Any], Promise[Any]]
-  @volatile private[this] var _shutdown = false
   private[this] val sleepTimeMs = sleepTime.toMillis
-  private[this] val lock = new juc.locks.ReentrantLock()
-  private[this] val notEmpty = lock.newCondition()
+  private[this] var _thread = Option.empty[FutureSelectorThread]
 
-  private[this] val thread = new Thread {
+  private class FutureSelectorThread extends Thread {
+    @volatile var _futures = Map.empty[juc.Future[Any], Promise[Any]]
+    @volatile var _shutdown = false
+    val lock = new juc.locks.ReentrantLock()
+    val notEmpty = lock.newCondition()
+
     @tailrec
     override final def run() {
       if (!_shutdown) {
@@ -64,45 +66,57 @@ class FutureSelector(sleepTime: Duration = Duration(1, MILLISECONDS)) {
         run()
       }
     }
-  }
 
-  private def add(jfuture: juc.Future[Any], promise: Promise[Any]) {
-    lock.lock()
-    try {
-      val futures = _futures
-      _futures = futures + (jfuture -> promise)
-      if (futures.isEmpty)
-        notEmpty.signalAll()
-    } finally {
-      lock.unlock()
+    def add(jfuture: juc.Future[Any], promise: Promise[Any]) {
+      lock.lock()
+      try {
+        val futures = _futures
+        _futures = futures + (jfuture -> promise)
+        if (futures.isEmpty)
+          notEmpty.signalAll()
+      } finally {
+        lock.unlock()
+      }
     }
-  }
 
-  private def remove(done: Iterable[juc.Future[Any]]) {
-    lock.lock()
-    try {
-      _futures --= done
-    } finally {
-      lock.unlock()
+    def remove(done: Iterable[juc.Future[Any]]) {
+      lock.lock()
+      try {
+        _futures --= done
+      } finally {
+        lock.unlock()
+      }
     }
+
   }
 
   def start() {
-    thread.start()
+    if (_thread.isEmpty) {
+      val thread = new FutureSelectorThread
+      _thread = Some(thread)
+      thread.start()
+    }
   }
 
   def shutdown() {
-    _shutdown = true
-    notEmpty.signalAll()
+    _thread foreach { thread =>
+      thread._shutdown = true
+      thread.notEmpty.signalAll()
+    }
+    _thread = None
   }
 
   def apply[T](jfuture: juc.Future[T])(implicit executor: ExecutionContext): Future[T] = {
-    val promise = Promise[T]()
-    if (jfuture.isDone)
-      promise success jfuture.get()
-    else
-      add(jfuture.asInstanceOf[juc.Future[Any]], promise.asInstanceOf[Promise[Any]])
-    promise.future
+    _thread map { thread =>
+      val promise = Promise[T]()
+      if (jfuture.isDone)
+        promise success jfuture.get()
+      else
+        thread.add(jfuture.asInstanceOf[juc.Future[Any]], promise.asInstanceOf[Promise[Any]])
+      promise.future
+    } getOrElse {
+      Future failed new IllegalStateException("FutureSelector has not yet started")
+    }
   }
 
 }
