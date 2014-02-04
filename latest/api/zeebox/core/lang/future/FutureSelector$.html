@@ -12,7 +12,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../index.html';
-            var hash = 'zeebox.core.lang.future.FutureSelector';
+            var hash = 'zeebox.core.lang.future.FutureSelector$';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -22,26 +22,24 @@
    	  </script>
     
         </head>
-        <body class="type">
+        <body class="value">
       <div id="definition">
-        <a href="FutureSelector$.html" title="Go to companion"><img src="../../../../lib/class_to_object_big.png" /></a>
+        <a href="FutureSelector.html" title="Go to companion"><img src="../../../../lib/object_to_class_big.png" /></a>
         <p id="owner"><a href="../../../package.html" class="extype" name="zeebox">zeebox</a>.<a href="../../package.html" class="extype" name="zeebox.core">core</a>.<a href="../package.html" class="extype" name="zeebox.core.lang">lang</a>.<a href="package.html" class="extype" name="zeebox.core.lang.future">future</a></p>
-        <h1><a href="FutureSelector$.html" title="Go to companion">FutureSelector</a></h1>
+        <h1><a href="FutureSelector.html" title="Go to companion">FutureSelector</a></h1>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">FutureSelector</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+        <span class="name">FutureSelector</span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A helper that polls for the completion of Java Futures. The results of the Java Futures
-are returned through Scala Futures.
-</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
@@ -79,24 +77,7 @@ are returned through Scala Futures.
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="zeebox.core.lang.future.FutureSelector#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(sleepTime:scala.concurrent.duration.Duration):zeebox.core.lang.future.FutureSelector"></a>
-      <a id="&lt;init&gt;:FutureSelector"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">FutureSelector</span><span class="params">(<span name="sleepTime">sleepTime: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.duration.Duration" class="extype" target="_top">Duration</a></span>)</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">sleepTime</dt><dd class="cmt"><p>The duration that the selector will wait between each iteration
-</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
 
         
 
@@ -170,15 +151,15 @@ are returned through Scala Futures.
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="zeebox.core.lang.future.FutureSelector#apply" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply[T](jfuture:java.util.concurrent.Future[T])(implicitexecutor:scala.concurrent.ExecutionContext):scala.concurrent.Future[T]"></a>
-      <a id="apply[T](Future[T])(ExecutionContext):Future[T]"></a>
+      <a id="apply(sleepTime:scala.concurrent.duration.Duration):zeebox.core.lang.future.FutureSelector"></a>
+      <a id="apply(Duration):FutureSelector"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="jfuture">jfuture: <span class="extype" name="java.util.concurrent.Future">Future</span>[<span class="extype" name="zeebox.core.lang.future.FutureSelector.apply.T">T</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="zeebox.core.lang.future.FutureSelector.apply.T">T</span>]</span>
+        <span class="name">apply</span><span class="params">(<span name="sleepTime">sleepTime: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.duration.Duration" class="extype" target="_top">Duration</a> = <span class="symbol">Duration(1, MILLISECONDS)</span></span>)</span><span class="result">: <a href="FutureSelector.html" class="extype" name="zeebox.core.lang.future.FutureSelector">FutureSelector</a></span>
       </span>
       </h4>
       
@@ -337,32 +318,6 @@ are returned through Scala Futures.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="zeebox.core.lang.future.FutureSelector#shutdown" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="shutdown():Unit"></a>
-      <a id="shutdown():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">shutdown</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      
-    </li><li name="zeebox.core.lang.future.FutureSelector#start" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="start():Unit"></a>
-      <a id="start():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">start</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
-      </span>
-      </h4>
-      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
