@@ -22,13 +22,17 @@ import java.util.{concurrent => juc}
 import scala.concurrent.{ExecutionContext, Promise, Future}
 import annotation.tailrec
 
+object FutureSelector {
+  def apply(sleepTime: Duration = Duration(1, MILLISECONDS)) = new FutureSelector(sleepTime)
+}
+
 /**
  * A helper that polls for the completion of Java Futures. The results of the Java Futures
- * are returned through Akka Futures.
+ * are returned through Scala Futures.
  *
  * @param sleepTime The duration that the selector will wait between each iteration
  */
-class FutureSelector(sleepTime: Duration = Duration(1, MILLISECONDS)) {
+class FutureSelector(sleepTime: Duration) {
   private[this] val sleepTimeMs = sleepTime.toMillis
   private[this] var _thread = Option.empty[FutureSelectorThread]
 
