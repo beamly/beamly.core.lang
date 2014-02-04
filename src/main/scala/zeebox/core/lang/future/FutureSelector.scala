@@ -57,8 +57,8 @@ class FutureSelector(sleepTime: Duration) {
         } else {
           val done = futures collect {
             case (jfuture, promise) if jfuture.isDone =>
-              try promise success jfuture.get() catch {
-                case ex: juc.ExecutionException => promise failure ex
+              try promise trySuccess jfuture.get() catch {
+                case ex: juc.ExecutionException => promise tryFailure ex
               }
               jfuture
           }
