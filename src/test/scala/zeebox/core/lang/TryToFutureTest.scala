@@ -1,5 +1,5 @@
 /**
-   Copyright (C) 2011-2014 zeebox Ltd.  http://zeebox.com
+   Copyright (C) 2011-2014 beamly Ltd.  http://beamly.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
 
 **/
 
-package zeebox.core.lang
+package beamly.core.lang
 
 
 import scala.concurrent.Future
 import scala.util.{Success, Failure}
-import zeebox.core.lang.TryToFuture._
-import zeebox.core.lang.future._
+import beamly.core.lang.TryToFuture._
+import beamly.core.lang.future._
 import org.specs2.mutable.Specification
 
 class TryToFutureTest extends Specification {

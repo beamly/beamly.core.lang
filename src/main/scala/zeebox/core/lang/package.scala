@@ -1,5 +1,5 @@
 /**
-   Copyright (C) 2011-2014 zeebox Ltd.  http://zeebox.com
+   Copyright (C) 2011-2014 beamly Ltd.  http://beamly.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 **/
 
 
-package zeebox.core.lang
+package beamly.core.lang
 
 import scala.language.experimental.macros
 
@@ -59,8 +59,8 @@ object `package` {
      * "name".toSnakeCase == "name"
      * "NAME".toSnakeCase == "name"
      * "EpisodeId".toSnakeCase == "episode_id"
-     * "zeeBOXstuff".toSnakeCase == "zee_box_stuff"
-     * "ZEEboxSTUFF.toSnakeCase "zee_box_stuff"
+     * "beamLYstuff".toSnakeCase == "beam_ly_stuff"
+     * "BEAMlySTUFF.toSnakeCase "beam_ly_stuff"
      * @return string with word barriers represented with underscores
      */
     def toSnakeCase: String = {

@@ -1,7 +1,7 @@
-zeebox.core.lang
+beamly.core.lang
 ================
 
-The zeebox core lang package.
+The Beamly core lang package.
 
 
 License
@@ -25,5 +25,5 @@ To report issues with this software, please raise them via the github reporting 
 Contributions
 =============
 
-Currently we are not accepting contributions, if you wish to contribute please contact us via github.
+Currently we are not able to accept pull requests, if you wish to contribute please contact us via github.
 

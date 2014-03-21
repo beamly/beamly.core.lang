@@ -1,5 +1,5 @@
 /**
-   Copyright (C) 2011-2014 zeebox Ltd.  http://zeebox.com
+   Copyright (C) 2011-2014 beamly Ltd.  http://beamly.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 
 **/
 
-package zeebox.core.lang.future
+package beamly.core.lang.future
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
