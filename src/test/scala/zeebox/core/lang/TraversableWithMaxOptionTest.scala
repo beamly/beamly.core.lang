@@ -1,4 +1,4 @@
-package zeebox.core.lang
+package beamly.core.lang
 
 import org.specs2.mutable._
 
