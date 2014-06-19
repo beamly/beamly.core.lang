@@ -215,15 +215,15 @@ object `package` {
   }
 
   @tailrec
-  private def sendAtomicReference[A](ref: AtomicReference[A])(f: A => A) {
+  private def updateAtomicReference[A](ref: AtomicReference[A])(f: A => A) {
     val a = ref.get
-    if (!ref.compareAndSet(a, f(a))) sendAtomicReference(ref)(f) else ()
+    if (!ref.compareAndSet(a, f(a))) updateAtomicReference(ref)(f) else ()
   }
 
   @inline
   implicit final class AtomicReferenceW[A](val underlying: AtomicReference[A]) extends AnyVal {
-    def send(f: A => A) {
-      sendAtomicReference(underlying)(f)
+    def update(f: A => A) {
+      updateAtomicReference(underlying)(f)
     }
   }
 
