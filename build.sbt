@@ -8,13 +8,23 @@ version := "1.0-SNAPSHOT"
 
 organization := "com.zeebox"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.1"
 
-libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-reflect" % _)
+crossScalaVersions := Seq("2.11.1", "2.10.4")
 
-libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2" % "2.2.2" % "test"
-)
+libraryDependencies <++= scalaVersion { sv =>
+  Seq(
+    "org.specs2" %% "specs2" % "2.3.11" % "test",
+    "org.scala-lang" % "scala-reflect" % sv,
+    compilerPlugin("org.scalamacros" %% "paradise" % "2.0.0" cross CrossVersion.full)
+  ) ++ (CrossVersion partialVersion sv collect {
+    case (2, 10) => "org.scalamacros" %% "quasiquotes" % "2.0.0"
+  })
+}
+
+incOptions := CrossVersion partialVersion scalaVersion.value collect {
+  case (2, scalaMajor) if scalaMajor >= 11 => incOptions.value withNameHashing true
+} getOrElse incOptions.value // name hashing causes StackOverflowError under sbt 0.13.5 & scala 2.10.4, see sbt#1237 & SI-8486
 
 site.settings
 

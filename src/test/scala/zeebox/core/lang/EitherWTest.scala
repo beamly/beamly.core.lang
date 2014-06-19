@@ -30,7 +30,7 @@ class EitherWTest extends Specification {
       "Left"  ! ((for (a <- Right("foo") if a == "bar") yield a) must beLeft(None))
     }
     "longForComprehension" >> {
-      "Right" ! { (for (a <- gt0(1); b <- gt0(2); c <- gt0(3);             d <- gt0(4) if (d == 4)) yield (a, b, c, d)) must beRight(1, 2, 3, 4) }
+      "Right" ! { (for (a <- gt0(1); b <- gt0(2); c <- gt0(3);             d <- gt0(4) if (d == 4)) yield (a, b, c, d)) must beRight((1, 2, 3, 4)) }
       "Left"  ! { (for (a <- gt0(1); b <- gt0(2); c <- gt0(-3);            d <- gt0(4) if (d == 4)) yield (a, b, c, d)) must beLeft(Some("-3 is not greater than 0")) }
       "Left2" ! { (for (a <- gt0(1); b <- gt0(2); c <- gt0(3) if (c == 4); d <- gt0(4)            ) yield (a, b, c, d)) must beLeft(None) }
       "Left3" ! { (for (a <- gt0(1); b <- gt0(2); c <- gt0(3) if (c == 3); d <- gt0(-4)           ) yield (a, b, c, d)) must beLeft(Some("-4 is not greater than 0")) }

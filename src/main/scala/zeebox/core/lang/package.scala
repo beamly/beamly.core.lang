@@ -191,7 +191,7 @@ object `package` {
   }
 
   @inline
-  implicit final class OptionW[T](val underlying: Option[T]) extends AnyVal {
+  implicit final class OptionW[+T](val underlying: Option[T]) extends AnyVal {
     /**
      * Returns the original [[scala.Option]] but allows handling of a [[scala.Some]] value, usually for logging
      * @param f The function which handles a [[scala.Some]] value
@@ -249,8 +249,8 @@ object `package` {
 
   // ripped from PartialFunction.scala
   private[this] val fallback_pf: PartialFunction[Any, Any] = { case _ => fallback_pf }
-  private def checkFallback[B] = fallback_pf.asInstanceOf[PartialFunction[Any, B]]
-  private def fallbackOccurred[B](x: B) = (fallback_pf eq x.asInstanceOf[AnyRef])
+  private[lang] def checkFallback[B] = fallback_pf.asInstanceOf[PartialFunction[Any, B]]
+  private[lang] def fallbackOccurred[B](x: B) = fallback_pf eq x.asInstanceOf[AnyRef]
 
   implicit class PartialFunctionW[-A, +B](val pf: A =?> B) extends AnyVal {
 
@@ -264,29 +264,6 @@ object `package` {
      */
     def composePF[C](k: C => A): C =?> B = new ComposePF(k, pf)
 
-  }
-
-  private class AndThenWithContext[-A, B, +C](pf: A =?> B, k: (A, B) => C) extends (A =?> C) {
-    def apply(x: A): C = k(x, pf(x))
-
-    def isDefinedAt(x: A): Boolean = pf isDefinedAt x
-
-    override def applyOrElse[A1 <: A, C1 >: C](x: A1, default: A1 => C1): C1 = {
-      val z = pf.applyOrElse(x, checkFallback[B])
-      if (!fallbackOccurred(z)) k(x, z) else default(x)
-    }
-  }
-
-  private class ComposePF[-A, B, +C](k: (A => B), pf: B =?> C) extends (A =?> C) {
-    def apply(x: A): C = pf(k(x))
-
-    def isDefinedAt(x: A): Boolean = pf isDefinedAt k(x)
-
-    override def applyOrElse[A1 <: A, C1 >: C](x: A1, default: A1 => C1): C1 = {
-      val b = k(x)
-      val z = pf.applyOrElse(b, checkFallback[C])
-      if (!fallbackOccurred(z)) z else default(x)
-    }
   }
 
   @inline
@@ -321,4 +298,47 @@ object `package` {
       }(collection.breakOut)
   }
 
+  /** @define coll collection or iterator */
+  @inline
+  implicit final class TraversableWithMaxOption[+A](val xs: TraversableOnce[A]) extends AnyVal {
+    /** Attempts to find the largest element.
+      *
+      *  @param    ord   An ordering to be used for comparing elements.
+      *  @tparam   A1    The type over which the ordering is defined.
+      *  @return   an option value containing the largest element of this $coll
+      *            with respect to the ordering `ord`, or `None` if this $coll
+      *            is empty
+      *
+      * @usecase def maxOption: A
+      *    @inheritdoc
+      *
+      *    @return   an option value containing the largest element of this
+      *              $coll, or `None` if this $coll is empty
+      */
+    def maxOption[A1 >: A](implicit ord: Ordering[A1]): Option[A] =
+      if (xs.isEmpty) None else Some(xs.max[A1])
+  }
+}
+
+private class AndThenWithContext[-A, B, +C](pf: A =?> B, k: (A, B) => C) extends (A =?> C) {
+  def apply(x: A): C = k(x, pf(x))
+
+  def isDefinedAt(x: A): Boolean = pf isDefinedAt x
+
+  override def applyOrElse[A1 <: A, C1 >: C](x: A1, default: A1 => C1): C1 = {
+    val z = pf.applyOrElse(x, checkFallback[B])
+    if (!fallbackOccurred(z)) k(x, z) else default(x)
+  }
+}
+
+private class ComposePF[-A, B, +C](k: (A => B), pf: B =?> C) extends (A =?> C) {
+  def apply(x: A): C = pf(k(x))
+
+  def isDefinedAt(x: A): Boolean = pf isDefinedAt k(x)
+
+  override def applyOrElse[A1 <: A, C1 >: C](x: A1, default: A1 => C1): C1 = {
+    val b = k(x)
+    val z = pf.applyOrElse(b, checkFallback[C])
+    if (!fallbackOccurred(z)) z else default(x)
+  }
 }

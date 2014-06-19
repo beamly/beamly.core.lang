@@ -28,18 +28,18 @@ import scala.util.{Failure, Success, Try}
 import scala.util.control.{NonFatal, NoStackTrace}
 import scala.reflect.macros.Context
 
+case class FutureTimeoutException(duration: Duration) extends RuntimeException("Future has timed out after %s" format duration) with NoStackTrace
+
 object `package` {
 
-  case class FutureTimeoutException(duration: Duration) extends RuntimeException("Future has timed out after %s" format duration) with NoStackTrace
-
-  val futureUnit: Future[Unit] = Future.successful()
+  val futureUnit: Future[Unit] = Future.successful(())
 
   val futureNone: Future[Option[Nothing]] = Future successful None
 
   /**
    * Creates a promise, uses the provided function to fulfil the promise and then returns the future from the promise.
    * Note that if the function throws an exception that it will not be caught or converted to a failed future.
-   * 
+   *
    * @param f The function used to fulfil the promise
    * @tparam A The type returned
    * @return Future returned from the value
@@ -50,7 +50,7 @@ object `package` {
     promise.future
   }
 
-  implicit class FutureW[A](val underlying: Future[A]) extends AnyVal {
+  implicit class FutureW[+A](val underlying: Future[A]) extends AnyVal {
     /**
      * Maps a [[scala.util.Try]] to a value.
      * @param f Function which maps the [[scala.util.Try]] to a value
@@ -115,7 +115,7 @@ object `package` {
     /**
      * Maps successful or failed values into a new [[scala.concurrent.Future]]
      * Catches any exceptions from conversion and returns failed future.
-     * 
+     *
      * @param failed Function for converting a [[scala.Throwable]] to a successful value
      * @param successful Function for converting a successful value to a new success
      * @param ec The execution context
@@ -152,13 +152,13 @@ object `package` {
 
   }
 
-  implicit class FutureFutureW[A](val underlying: Future[Future[A]]) extends AnyVal {
+  implicit class FutureFutureW[+A](val underlying: Future[Future[A]]) extends AnyVal {
     /**
      * @param executor The execution context
      * @return Flattened [[scala.concurrent.Future]]
      */
     def join(implicit executor: ExecutionContext): Future[A] = underlying flatMap identity
-    
+
     /**
      * @param executor The execution context
      * @return Flattened [[scala.concurrent.Future]]
@@ -166,7 +166,7 @@ object `package` {
     def flatten(implicit executor: ExecutionContext): Future[A] = underlying flatMap identity
   }
 
-  implicit class FutureEitherW[A](val underlying: Future[Either[Throwable, A]]) extends AnyVal {
+  implicit class FutureEitherW[+A](val underlying: Future[Either[Throwable, A]]) extends AnyVal {
     /**
      * Converts to successful or failed future
      * @param executor The execution context
@@ -175,7 +175,7 @@ object `package` {
     def join(implicit executor: ExecutionContext): Future[A] = underlying flatMap (_.fold(Future.failed, Future.successful))
   }
 
-  implicit class FutureTryW[A](val underlying: Future[Try[A]]) extends AnyVal {
+  implicit class FutureTryW[+A](val underlying: Future[Try[A]]) extends AnyVal {
     /**
      * Flattens to future.
      * @param executor The execution context
@@ -187,7 +187,7 @@ object `package` {
     }
   }
 
-  implicit class FutureOptionW[A](val underlying: Future[Option[A]]) extends AnyVal {
+  implicit class FutureOptionW[+A](val underlying: Future[Option[A]]) extends AnyVal {
     /**
      * Maps some value to new future option.
      * {{
@@ -224,7 +224,7 @@ object `package` {
     }
   }
 
-  implicit class FutureTraversableW[A](val underlying: Future[Traversable[A]]) extends AnyVal {
+  implicit class FutureTraversableW[+A](val underlying: Future[Traversable[A]]) extends AnyVal {
     /**
      * Maps values in collection, creating new future based on the mapped results
      * @param f Function to map values in collection
@@ -241,18 +241,29 @@ object `package` {
 
   implicit class FutureCompanionW(val underlying: Future.type) extends AnyVal {
     def of[A](a: A)(implicit ec: ExecutionContext): Future[A] = macro smartFutureMacroImpl[A]
+
+    /**
+     * Creates a Future Option based on the provided option.
+     * @param optionalValue The optional value
+     * @param f Function to convert some value to a future
+     * @param ec The execution context
+     * @tparam A The type of the optional value
+     * @tparam B The return type
+     * @return Future None if the optional value is None, otherwise Future Some value
+     */
+    def option[A,B](optionalValue: Option[A])(f: A => Future[B])(implicit ec: ExecutionContext): Future[Option[B]] = {
+      optionalValue map { value =>
+        f(value) map (Some(_))
+      } getOrElse Future.successful(None)
+    }
   }
 
   def smartFutureMacroImpl[A: c.WeakTypeTag](c: Context)(a: c.Expr[A])(ec: c.Expr[ExecutionContext]): c.Expr[Future[A]] = {
     import c.universe._
 
-    val futureSelect = Select(Select(Ident(newTermName("scala")), newTermName("concurrent")), newTermName("Future"))
-    val futureSuccessful = Select(futureSelect, newTermName("successful"))
-    val futureApply = Select(futureSelect, newTermName("apply"))
-
     a.tree match {
-      case _: Literal | _: Ident => c.Expr[Future[A]](Apply(futureSuccessful, a.tree :: Nil))
-      case _                     => c.Expr[Future[A]](Apply(Apply(futureApply, a.tree :: Nil), ec.tree :: Nil))
+      case _: Literal | _: Ident => c.Expr[Future[A]](q"scala.concurrent.Future.successful($a)")
+      case _                     => c.Expr[Future[A]](q"scala.concurrent.Future($a)")
     }
   }
 }

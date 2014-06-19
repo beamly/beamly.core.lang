@@ -37,7 +37,7 @@ class FutureWTest extends Specification {
         case Failure(exception) => 0
       }.get === 0
     }
-    
+
     "flatMapTry for a Success" in {
       Future.successful(3).flatMapTry {
         case Success(result) => Future.successful(result)
@@ -51,7 +51,7 @@ class FutureWTest extends Specification {
         case Failure(ex) => Future.failed(ex)
       }.get must throwAn(exception)
     }
-    
+
     "fold for a Success" in {
       Future.successful("hello").fold(
         failed = _.getMessage,
