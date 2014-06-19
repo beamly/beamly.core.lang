@@ -1,5 +1,5 @@
 /**
-   Copyright (C) 2011-2014 zeebox Ltd.  http://zeebox.com
+   Copyright (C) 2011-2014 beamly Ltd.  http://beamly.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 
 **/
 
-package zeebox.core.lang
+package beamly.core.lang
 
 
 import org.specs2.mutable._
@@ -36,7 +36,7 @@ class StringWTest extends Specification {
     "convert a lowercase string to snake case" in { "name".toSnakeCase === "name" }
     "convert an uppercase string to snake case" in { "NAME".toSnakeCase === "name" }
     "convert a mixed case string to snake case" in { "EpisodeId".toSnakeCase === "episode_id" }
-    "convert a mixed case string to snake case" in { "zeeBOXstuff".toSnakeCase === "zee_box_stuff" }
-    "convert a mixed case string to snake case" in { "ZEEboxSTUFF".toSnakeCase === "zee_box_stuff" }
+    "convert a mixed case string to snake case" in { "beamLYstuff".toSnakeCase === "beam_ly_stuff" }
+    "convert a mixed case string to snake case" in { "BEAMlySTUFF".toSnakeCase === "beam_ly_stuff" }
   }
 }

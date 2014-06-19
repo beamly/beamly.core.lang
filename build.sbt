@@ -2,11 +2,11 @@ import com.typesafe.sbt.SbtGhPages.ghpages
 import com.typesafe.sbt.SbtGit.git
 import com.typesafe.sbt.SbtSite.site
 
-name := "zeebox-core-lang"
+name := "beamly-core-lang"
 
 version := "1.0-SNAPSHOT"
 
-organization := "com.zeebox"
+organization := "com.beamly"
 
 scalaVersion := "2.11.1"
 
@@ -36,6 +36,7 @@ site.includeScaladoc()
 
 autoAPIMappings := true
 
-apiURL := Some(url("http://zeebox.github.io/zeebox.core.lang/latest/api/"))
+apiURL := Some(url("http://zeebox.github.io/beamly.core.lang/latest/api/"))
 
 javacOptions in (Compile,doc) ++= Seq("-linksource")
+

@@ -1,4 +1,4 @@
-dea
+idea
 .idea_modules
 project/project
 atlassian-ide-plugin.xml
@@ -9,3 +9,4 @@ test-reports
 .project
 .settings
 *.swp
+target

@@ -1,5 +1,5 @@
 /**
-   Copyright (C) 2011-2014 zeebox Ltd.  http://zeebox.com
+   Copyright (C) 2011-2014 beamly Ltd.  http://beamly.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,6 +15,6 @@
 
 **/
 
-package zeebox.core.lang
+package beamly.core.lang
 
 case class NotImplementedException(message: String = "Not Implemented") extends RuntimeException(message)
