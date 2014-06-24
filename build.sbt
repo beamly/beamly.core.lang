@@ -60,11 +60,11 @@ releaseVersion := { ver =>
 
 nextVersion    := { ver =>
   Version(ver) map { v =>
-    val nextBugFix = v.bugfix flatMap {
-      case 0 => None
-      case n => Some(n + 1)
+    v.bugfix collect {
+      case n if n > 0 => v.bumpMinor.bumpBugfix.asSnapshot.string
+    } getOrElse {
+      v.bumpMinor.copy(bugfix = None).asSnapshot.string
     }
-    v.bumpMinor.copy(bugfix = nextBugFix).asSnapshot.string
   } getOrElse versionFormatError
 }
 
