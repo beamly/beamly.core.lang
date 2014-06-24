@@ -61,7 +61,7 @@ releaseVersion := { ver =>
 nextVersion    := { ver =>
   Version(ver) map { v =>
     v.bugfix collect {
-      case n if n > 0 => v.bumpBugfix.asSnapshot.string
+      case n if n > 0 => v.bumpBugfix.string
     } getOrElse {
       v.bumpMinor.copy(bugfix = None).asSnapshot.string
     }
