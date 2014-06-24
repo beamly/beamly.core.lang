@@ -45,9 +45,28 @@ aetherSettings
 
 releaseSettings
 
-releaseVersion := { ver => Version(ver).map(v => v.copy(bugfix = v.bugfix orElse Some(0)).withoutQualifier.string).getOrElse(versionFormatError) }
+/**
+ * Release versioning:
+ * All minor releases have a bugfix version of 0.
+ * To create a new bugfix release, checkout the v{x}.{y}.0 tagged release as branch v{x}.{y}.
+ * All bugfix releases for that minor version should be created from that branch. The bugfix
+ * version should automatically increment within that branch.
+ */
+releaseVersion := { ver =>
+  Version(ver) map { v =>
+    v.copy(bugfix = v.bugfix map (_ max 1) orElse Some(0)).withoutQualifier.string
+  } getOrElse versionFormatError
+}
 
-nextVersion    := { ver => Version(ver).map(_.bumpMinor.copy(bugfix = None).asSnapshot.string).getOrElse(versionFormatError) }
+nextVersion    := { ver =>
+  Version(ver) map { v =>
+    val nextBugFix = v.bugfix flatMap {
+      case 0 => None
+      case n => Some(n + 1)
+    }
+    v.bumpMinor.copy(bugfix = nextBugFix).asSnapshot.string
+  } getOrElse versionFormatError
+}
 
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
