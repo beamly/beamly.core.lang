@@ -50,7 +50,7 @@ object `package` {
     promise.future
   }
 
-  implicit class FutureW[+A](val underlying: Future[A]) extends AnyVal {
+  implicit final class FutureBeamlyLang[+A](val underlying: Future[A]) extends AnyVal {
     /**
      * Maps a [[scala.util.Try]] to a value.
      * @param f Function which maps the [[scala.util.Try]] to a value
@@ -152,7 +152,7 @@ object `package` {
 
   }
 
-  implicit class FutureFutureW[+A](val underlying: Future[Future[A]]) extends AnyVal {
+  implicit final class FutureFutureBeamlyLang[+A](val underlying: Future[Future[A]]) extends AnyVal {
     /**
      * @param executor The execution context
      * @return Flattened [[scala.concurrent.Future]]
@@ -166,7 +166,7 @@ object `package` {
     def flatten(implicit executor: ExecutionContext): Future[A] = underlying flatMap identity
   }
 
-  implicit class FutureEitherW[+A](val underlying: Future[Either[Throwable, A]]) extends AnyVal {
+  implicit final class FutureEitherBeamlyLang[+A](val underlying: Future[Either[Throwable, A]]) extends AnyVal {
     /**
      * Converts to successful or failed future
      * @param executor The execution context
@@ -175,7 +175,7 @@ object `package` {
     def join(implicit executor: ExecutionContext): Future[A] = underlying flatMap (_.fold(Future.failed, Future.successful))
   }
 
-  implicit class FutureTryW[+A](val underlying: Future[Try[A]]) extends AnyVal {
+  implicit final class FutureTryBeamlyLang[+A](val underlying: Future[Try[A]]) extends AnyVal {
     /**
      * Flattens to future.
      * @param executor The execution context
@@ -187,7 +187,7 @@ object `package` {
     }
   }
 
-  implicit class FutureOptionW[+A](val underlying: Future[Option[A]]) extends AnyVal {
+  implicit final class FutureOptionBeamlyLang[+A](val underlying: Future[Option[A]]) extends AnyVal {
     /**
      * Maps some value to new future option.
      * {{
@@ -224,7 +224,7 @@ object `package` {
     }
   }
 
-  implicit class FutureTraversableW[+A](val underlying: Future[Traversable[A]]) extends AnyVal {
+  implicit class FutureTraversableBeamlyLang[+A](val underlying: Future[Traversable[A]]) extends AnyVal {
     /**
      * Maps values in collection, creating new future based on the mapped results
      * @param f Function to map values in collection
@@ -239,7 +239,7 @@ object `package` {
     }
   }
 
-  implicit class FutureCompanionW(val underlying: Future.type) extends AnyVal {
+  implicit class FutureCompanionBeamlyLang(val underlying: Future.type) extends AnyVal {
     def of[A](a: A)(implicit ec: ExecutionContext): Future[A] = macro smartFutureMacroImpl[A]
 
     /**

@@ -43,7 +43,7 @@ object `package` {
   final def nil[T]: List[T] = Nil
 
   @inline
-  implicit final class StringW(val underlying: String) extends AnyVal {
+  implicit final class StringBeamlyLang(val underlying: String) extends AnyVal {
     /**
      * @return true if a string is null, empty or contains only whitespace
      */
@@ -69,7 +69,7 @@ object `package` {
   }
 
   @inline
-  implicit final class EitherW[+L, +R](val underlying: Either[L, R]) extends AnyVal {
+  implicit final class EitherBeamlyLang[+L, +R](val underlying: Either[L, R]) extends AnyVal {
     /**
      * Successful right-hand side.
      * @return true if right
@@ -191,7 +191,7 @@ object `package` {
   }
 
   @inline
-  implicit final class OptionW[+T](val underlying: Option[T]) extends AnyVal {
+  implicit final class OptionBeamlyLang[+T](val underlying: Option[T]) extends AnyVal {
     /**
      * Returns the original [[scala.Option]] but allows handling of a [[scala.Some]] value, usually for logging
      * @param f The function which handles a [[scala.Some]] value
@@ -214,21 +214,23 @@ object `package` {
     }
   }
 
-  @tailrec
-  private def updateAtomicReference[A](ref: AtomicReference[A])(f: A => A) {
-    val a = ref.get
-    if (!ref.compareAndSet(a, f(a))) updateAtomicReference(ref)(f) else ()
-  }
-
   @inline
-  implicit final class AtomicReferenceW[A](val underlying: AtomicReference[A]) extends AnyVal {
-    def update(f: A => A) {
-      updateAtomicReference(underlying)(f)
+  implicit final class AtomicReferenceBeamlyLang[A](val underlying: AtomicReference[A]) extends AnyVal {
+
+    @tailrec
+    private def updateAtomicReference(f: A => A) {
+      val a = underlying.get
+      if (!underlying.compareAndSet(a, f(a))) updateAtomicReference(f) else ()
     }
+
+    def update(f: A => A) {
+      updateAtomicReference(f)
+    }
+
   }
 
   @inline
-  implicit final class TryW[T](val underlying: Try[T]) extends AnyVal {
+  implicit final class TryBeamlyLang[T](val underlying: Try[T]) extends AnyVal {
     /**
      * Converts [[scala.util.Try]] to [[scala.concurrent.Future]]
      * @return Future from Try
@@ -252,7 +254,8 @@ object `package` {
   private[lang] def checkFallback[B] = fallback_pf.asInstanceOf[PartialFunction[Any, B]]
   private[lang] def fallbackOccurred[B](x: B) = fallback_pf eq x.asInstanceOf[AnyRef]
 
-  implicit class PartialFunctionW[-A, +B](val pf: A =?> B) extends AnyVal {
+  @inline
+  implicit final class PartialFunctionBeamlyLang[-A, +B](val pf: A =?> B) extends AnyVal {
 
     /**
      * The same as 'andThen', except the input object is passed as well as the result.
@@ -267,13 +270,16 @@ object `package` {
   }
 
   @inline
-  implicit final class DoubleW(val underlying: Double) extends AnyVal {
+  implicit final class DoubleBeamlyLang(val underlying: Double) extends AnyVal {
     /**
      * @return true if number is finite
      */
     def isFinite: Boolean = !(underlying.isNaN || underlying.isInfinite)
   }
 
+  /**
+   * Implemented as a macro so the stack trace begins where '???' is called.
+   */
   def ??? : Nothing = macro notImplementedMacroImpl
 
   def notImplemented: Nothing = macro notImplementedMacroImpl
@@ -283,7 +289,8 @@ object `package` {
     reify[Nothing](throw NotImplementedException())
   }
 
-  implicit class MapW[K,A](val value: Map[K,A]) extends AnyVal {
+  @inline
+  implicit class MapBeamlyLang[K,A](val value: Map[K,A]) extends AnyVal {
     /**
      * Merges 2 maps together, using the provided merge function to create a new map value for a key.
      * @param other The other map
@@ -300,7 +307,7 @@ object `package` {
 
   /** @define coll collection or iterator */
   @inline
-  implicit final class TraversableWithMaxOption[+A](val xs: TraversableOnce[A]) extends AnyVal {
+  implicit final class TraversableBeamlyLang[+A](val xs: TraversableOnce[A]) extends AnyVal {
     /** Attempts to find the largest element.
       *
       *  @param    ord   An ordering to be used for comparing elements.
