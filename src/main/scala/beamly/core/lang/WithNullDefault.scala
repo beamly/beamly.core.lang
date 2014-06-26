@@ -8,7 +8,7 @@ object WithNullDefault {
 final class WithNullDefault[A <: AnyRef](private val underlying: A) extends AnyVal {
 
   @inline
-  def withNullDefault[B >: A](default: B): B = {
+  def withNullDefault[B >: A](default: => B): B = {
     val value = underlying
     if (value eq null) default else value
   }
