@@ -13,7 +13,7 @@ scalaVersion := "2.11.1"
 
 crossScalaVersions := Seq("2.11.1", "2.10.4")
 
-scalacOptions := Seq("-optimize", "-deprecation", "-unchecked", "-encoding", "utf8", /* "-Yinline-warnings", */ "-target:jvm-1.6", "-feature", "-Xlint", "-Ywarn-value-discard")
+scalacOptions := Seq("-optimize", "-deprecation", "-unchecked", "-encoding", "utf8", "-Yinline-warnings", "-target:jvm-1.6", "-feature", "-Xlint", "-Ywarn-value-discard")
 
 fork in Test := true
 

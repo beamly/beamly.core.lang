@@ -18,7 +18,10 @@
 
 package beamly.core.lang
 
+import beamly.core.lang.extensions.{TraversableSafer, RightBiasedEither}
+
 import scala.language.experimental.macros
+import scala.language.implicitConversions
 
 import java.util.concurrent.atomic.AtomicReference
 import scala.util.{Try, Failure, Success}
@@ -69,134 +72,15 @@ object `package` {
   }
 
   @inline
-  implicit final class EitherBeamlyLang[+L, +R](val underlying: Either[L, R]) extends AnyVal {
-    /**
-     * Successful right-hand side.
-     * @return true if right
-     */
-    def isSuccess = underlying.isRight
+  implicit def rightBiasedEither[L, R](either: Either[L, R]) = new RightBiasedEither[L, R](either)
 
-    /**
-     * Failed left-hand side.
-     * @return true if left
-     */
-    def isFailure = underlying.isLeft
-
-    /**
-     * Maps successful right value.
-     * @param f Mapping function
-     * @tparam RR Returned right value
-     * @return Either with new right value
-     */
-    def map[RR](f: R => RR): Either[L, RR] = underlying match {
-      case Right(r) => Right(f(r))
-      case left => left.asInstanceOf[Either[L, RR]]
-    }
-
-    /**
-     * Maps successful value to new Either.
-     * @param f Function which maps value to Either
-     * @tparam LL New failed type
-     * @tparam RR New successful type
-     * @return New Either
-     */
-    def flatMap[LL >: L, RR](f: R => Either[LL, RR]): Either[LL, RR] = underlying match {
-      case Right(r) => f(r)
-      case left => left.asInstanceOf[Either[LL, RR]]
-    }
-
-    /**
-     * Converts some failed values.
-     * @param pf Partial function which converts some values to new successful
-     * @tparam RR Type of new successful value
-     * @return New Either
-     */
-    def recover[RR >: R](pf: PartialFunction[L, RR]): Either[L, RR] = underlying match {
-      case Left(l) if pf isDefinedAt l => Right(pf(l))
-      case other => other
-    }
-
-    /**
-     * Converts some failed values.
-     * @param pf Partial function which converts some values to new Either
-     * @tparam RR Type of new successful value
-     * @return New Either
-     */
-    def flatRecover[RR >: R, LL >: L](pf: PartialFunction[L, Either[LL, RR]]): Either[LL, RR] = recoverWith(pf)
-
-    /**
-     * Converts some failed values.
-     * @param pf Partial function which converts some values to new Either
-     * @tparam RR Type of new successful value
-     * @return New Either
-     */
-    // consistency with other Scala APIs
-    def recoverWith[RR >: R, LL >: L](pf: PartialFunction[L, Either[LL, RR]]): Either[LL, RR] = underlying match {
-      case Left(l) if pf isDefinedAt l => pf(l)
-      case other => other
-    }
-
-    /**
-     * Gets the successful value or transforms failed values into successes.
-     * @param f Function which converts failures to successes
-     * @tparam RR Returned successful value
-     * @return Successful value
-     */
-    def getOrRecover[RR >: R](f: L => RR): RR = underlying match {
-      case Right(r) => r
-      case Left(l) => f(l)
-    }
-
-    /**
-     * Gets the successful value or another value in case of value.
-     * @param other Fallback value
-     * @tparam RR Returned successful value
-     * @return Successful value
-     */
-    def getOrElse[RR >: R](other: RR): RR = underlying match {
-      case Right(r) => r
-      case Left(l) => other
-    }
-
-    /**
-     * Filters successful values, pushing values as Left[None] which don't match the filter.
-     * @param p Predicate for filtering the values
-     * @param ev Conversion of failed values to Option
-     * @tparam LL New failure type
-     * @return New Either with successful matching filter included
-     */
-    def withFilter[LL](p: R => Boolean)(implicit ev: L <:< Option[LL]): Either[Option[LL], R] = underlying match {
-      case Right(r) => if (p(r)) Right(r) else Left(None)
-      case left => left.asInstanceOf[Either[Option[LL], R]]
-    }
-
-    /**
-     * Filters successful values, pushing values as Left[None] which don't match the filter.
-     * @param p Predicate for filtering the values
-     * @param ev Conversion of failed values to Option
-     * @tparam LL New failure type
-     * @return New Either with successful matching filter included
-     */
-    def filter[LL](p: R => Boolean)(implicit ev: L <:< Option[LL]): Either[Option[LL], R] = withFilter(p)
-
-    /**
-     * Converts [[scala.util.Either]] to [[scala.util.Try]]
-     * @param ev Way of converting failure value to [[scala.Throwable]]
-     * @return Try based on success or failure of this [[scala.util.Either]]
-     */
-    def toTry(implicit ev: L <:< Throwable) = underlying match {
-      case Right(r) => Success(r)
-      case Left(l)  => Failure(l)
-    }
-  }
-
-  @inline
   implicit final class OptionBeamlyLang[+T](val underlying: Option[T]) extends AnyVal {
     /**
      * Returns the original [[scala.Option]] but allows handling of a [[scala.Some]] value, usually for logging
      * @param f The function which handles a [[scala.Some]] value
      * @return The original [[scala.Option]]
      */
+    @inline
     def onSome(f: T => Unit): Option[T] = {
       underlying foreach f
       underlying
@@ -207,6 +91,7 @@ object `package` {
      * @param f The function which handles a [[scala.None]] value
      * @return The original [[scala.Option]]
      */
+    @inline
     def onNone(f: => Unit): Option[T] = {
       if (underlying.isEmpty)
         f
@@ -214,27 +99,27 @@ object `package` {
     }
   }
 
-  @inline
-  implicit final class AtomicReferenceBeamlyLang[A](val underlying: AtomicReference[A]) extends AnyVal {
-
-    @tailrec
-    private def updateAtomicReference(f: A => A) {
-      val a = underlying.get
-      if (!underlying.compareAndSet(a, f(a))) updateAtomicReference(f) else ()
-    }
+  implicit final class AtomicReferenceUpdate[A](val underlying: AtomicReference[A]) extends AnyVal {
 
     def update(f: A => A) {
+
+      @tailrec
+      def updateAtomicReference(f: A => A) {
+        val a = underlying.get
+        if (!underlying.compareAndSet(a, f(a))) updateAtomicReference(f) else ()
+      }
+
       updateAtomicReference(f)
     }
 
   }
 
-  @inline
   implicit final class TryBeamlyLang[T](val underlying: Try[T]) extends AnyVal {
     /**
      * Converts [[scala.util.Try]] to [[scala.concurrent.Future]]
      * @return Future from Try
      */
+    @inline
     def future: Future[T] = TryToFuture autoTryToFuture underlying
 
     /**
@@ -243,7 +128,8 @@ object `package` {
      * @tparam U type of return value
      * @return Underlying value or resulting value after converting exception
      */
-    def getOrRecover[U >: T](pf: PartialFunction[Throwable, U]): U = underlying match {
+    @inline
+    def getOrRecover[U >: T](pf: => PartialFunction[Throwable, U]): U = underlying match {
       case Success(s) => s
       case Failure(e) => pf.applyOrElse(e, throw (_: Throwable))
     }
@@ -251,10 +137,9 @@ object `package` {
 
   // ripped from PartialFunction.scala
   private[this] val fallback_pf: PartialFunction[Any, Any] = { case _ => fallback_pf }
-  private[lang] def checkFallback[B] = fallback_pf.asInstanceOf[PartialFunction[Any, B]]
-  private[lang] def fallbackOccurred[B](x: B) = fallback_pf eq x.asInstanceOf[AnyRef]
+  @inline private[lang] def checkFallback[B] = fallback_pf.asInstanceOf[PartialFunction[Any, B]]
+  @inline private[lang] def fallbackOccurred[B](x: B) = fallback_pf eq x.asInstanceOf[AnyRef]
 
-  @inline
   implicit final class PartialFunctionBeamlyLang[-A, +B](val pf: A =?> B) extends AnyVal {
 
     /**
@@ -269,11 +154,11 @@ object `package` {
 
   }
 
-  @inline
   implicit final class DoubleBeamlyLang(val underlying: Double) extends AnyVal {
     /**
      * @return true if number is finite
      */
+    @inline
     def isFinite: Boolean = !(underlying.isNaN || underlying.isInfinite)
   }
 
@@ -289,7 +174,6 @@ object `package` {
     reify[Nothing](throw NotImplementedException())
   }
 
-  @inline
   implicit class MapBeamlyLang[K,A](val value: Map[K,A]) extends AnyVal {
     /**
      * Merges 2 maps together, using the provided merge function to create a new map value for a key.
@@ -305,26 +189,8 @@ object `package` {
       }(collection.breakOut)
   }
 
-  /** @define coll collection or iterator */
   @inline
-  implicit final class TraversableBeamlyLang[+A](val xs: TraversableOnce[A]) extends AnyVal {
-    /** Attempts to find the largest element.
-      *
-      *  @param    ord   An ordering to be used for comparing elements.
-      *  @tparam   A1    The type over which the ordering is defined.
-      *  @return   an option value containing the largest element of this $coll
-      *            with respect to the ordering `ord`, or `None` if this $coll
-      *            is empty
-      *
-      * @usecase def maxOption: A
-      *    @inheritdoc
-      *
-      *    @return   an option value containing the largest element of this
-      *              $coll, or `None` if this $coll is empty
-      */
-    def maxOption[A1 >: A](implicit ord: Ordering[A1]): Option[A] =
-      if (xs.isEmpty) None else Some(xs.max[A1])
-  }
+  implicit def traversableSafer[A](xs: TraversableOnce[A]) = new TraversableSafer[A](xs)
 }
 
 private class AndThenWithContext[-A, B, +C](pf: A =?> B, k: (A, B) => C) extends (A =?> C) {
