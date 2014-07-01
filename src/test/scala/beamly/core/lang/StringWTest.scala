@@ -65,7 +65,7 @@ class StringWTest extends Specification {
   }
   "toLongOption" should {
     "convert MinValue" in {  Long.MinValue.toString.toLongOption ==== Some(Long.MinValue) }
-    "convert 0"        in {                     "0".toLongOption ==== Some(0) }
+    "convert 0"        in {                     "0".toLongOption ==== Some(0L) }
     "convert MaxValue" in {  Long.MaxValue.toString.toLongOption ==== Some(Long.MaxValue) }
     "not convert a"    in {                     "a".toLongOption ==== None }
   }
