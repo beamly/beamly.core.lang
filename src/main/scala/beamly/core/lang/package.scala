@@ -26,6 +26,7 @@ import scala.annotation.tailrec
 import scala.concurrent.Future
 import scala.{PartialFunction => =?>}
 import scala.reflect.macros.Context
+import scala.util.control.Exception.catching
 
 /**
  * Useful additions to already existing Scala and Java classes. Should not include any
@@ -66,6 +67,14 @@ object `package` {
     def toSnakeCase: String = {
       underlying.replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2_$3").replaceAll("([a-z]+)([A-Z]+)", "$1_$2").toLowerCase
     }
+
+    def toBooleanOption = catching(classOf[IllegalArgumentException]) opt underlying.toBoolean
+    def toByteOption    = catching(classOf[NumberFormatException]) opt underlying.toByte
+    def toShortOption   = catching(classOf[NumberFormatException]) opt underlying.toShort
+    def toIntOption     = catching(classOf[NumberFormatException]) opt underlying.toInt
+    def toLongOption    = catching(classOf[NumberFormatException]) opt underlying.toLong
+    def toFloatOption   = catching(classOf[NumberFormatException]) opt underlying.toFloat
+    def toDoubleOption  = catching(classOf[NumberFormatException]) opt underlying.toDouble
   }
 
   @inline
