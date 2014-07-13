@@ -44,7 +44,7 @@ object `package` {
    * @tparam A The type returned
    * @return Future returned from the value
    */
-  def promising[A](f: Promise[A] => Unit): Future[A] = {
+  def promising[A](f: Promise[A] => Any): Future[A] = {
     val promise = Promise[A]()
     f(promise)
     promise.future
