@@ -12,7 +12,7 @@ and this dependency:
 Quick start
 ===========
 
-The [scaladocs](http://zeebox.github.io/beamly.core.lang/latest/api/ "beamly.core.lang scaladocs") provide full details, but here's a brief summary of some of the key benefits and features.
+The [scaladocs](http://beamly.github.io/beamly.core.lang/latest/api/ "beamly.core.lang scaladocs") provide full details, but here's a brief summary of some of the key benefits and features.
 
 ## String utilities
 * `isBlank/nonBlank` methods to check if a string is empty or contains only whitespace
