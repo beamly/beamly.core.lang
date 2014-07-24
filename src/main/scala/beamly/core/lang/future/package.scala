@@ -56,14 +56,6 @@ object `package` {
    */
   def promising[A]: Promising[A] = new Promising
 
-  class Promising[A] {
-    def apply[B](f: Promise[A] => B): Future[A] = {
-      val promise = Promise[A]()
-      f(promise)
-      promise.future
-    }
-  }
-
   implicit class FutureW[+A](val underlying: Future[A]) extends AnyVal {
     /**
      * Maps a [[scala.util.Try]] to a value.
