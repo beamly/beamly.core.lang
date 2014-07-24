@@ -54,7 +54,7 @@ object `package` {
    * @tparam A The type returned
    * @return Future returned from the value
    */
-  def promising[A]: Promising[A] = new Promising
+  def promising[A]: Promising[A] = new Promising(Promise[A]())
 
   implicit class FutureW[+A](val underlying: Future[A]) extends AnyVal {
     /**
