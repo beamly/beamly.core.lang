@@ -33,13 +33,15 @@ incOptions := CrossVersion partialVersion scalaVersion.value collect {
 
 credentials += Credentials(Path.userHome / ".sbt" / ".zeebox_credentials")
 
-publishTo <<= version apply { (v: String) =>
-  if (v endsWith "SNAPSHOT") {
-    Some("zeebox-nexus-snapshots" at "http://nexus.zeebox.com:8080/nexus/content/repositories/snapshots")
-  } else {
-    Some("zeebox-nexus" at "http://nexus.zeebox.com:8080/nexus/content/repositories/releases")
-  }
+publishTo := {
+  val sonatypeBaseUrl = "https://oss.sonatype.org/"
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at sonatypeBaseUrl + "content/repositories/snapshots")
+  else
+    Some("releases"  at sonatypeBaseUrl + "service/local/staging/deploy/maven2")
 }
+
+publishMavenStyle := true
 
 aetherSettings
 
