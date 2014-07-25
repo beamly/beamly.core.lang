@@ -43,6 +43,38 @@ publishTo := {
 
 publishMavenStyle := true
 
+licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+homepage := Some(url("http://beamly.github.io/beamly.core.lang/"))
+
+pomExtra :=
+  <scm>
+    <url>git@github.com:beamly/beamly.core.lang.git</url>
+    <connection>scm:git:git@github.com:beamly/beamly.core.lang.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>derekjw</id>
+      <name>Derek Williams</name>
+      <url>https://github.com/derekjw</url>
+    </developer>
+    <developer>
+      <id>agustafson</id>
+      <name>Andrew Gustafson</name>
+      <url>https://github.com/agustafson</url>
+    </developer>
+    <developer>
+      <id>glenford</id>
+      <name>Glen Ford</name>
+      <url>https://github.com/glenford</url>
+    </developer>
+    <developer>
+      <id>dwijnand</id>
+      <name>Dale Wijnand</name>
+      <url>https://github.com/dwijnand</url>
+    </developer>
+  </developers>
+
 aetherSettings
 
 releaseSettings
