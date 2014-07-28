@@ -62,11 +62,10 @@ object `package` {
      * "EpisodeId".toSnakeCase == "episode_id"
      * "beamLYstuff".toSnakeCase == "beam_ly_stuff"
      * "BEAMlySTUFF.toSnakeCase "beam_ly_stuff"
+     * "beamLY stuff".toSnakeCase == "beam_ly_stuff"
      * @return string with word barriers represented with underscores
      */
-    def toSnakeCase: String = {
-      underlying.replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2_$3").replaceAll("([a-z]+)([A-Z]+)", "$1_$2").toLowerCase
-    }
+    def toSnakeCase: String = toWords.mkString("_")
 
     /**
      * Replaces word barriers with hyphens (and by "hyphens" what is actually meant is "hyphen-minus", ie. U+002D).
@@ -76,11 +75,26 @@ object `package` {
      * "EpisodeId".toHyphenCase == "episode-id"
      * "beamLYstuff".toHyphenCase == "beam-ly-stuff"
      * "BEAMlySTUFF.toHyphenCase "beam-ly-stuff"
+     * "beamLY stuff".toHyphenCase == "beam-ly-stuff"
      * }}}
      * @return string with word barriers represented with hyphens
      */
-    def toHyphenCase: String = {
-      underlying.replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2-$3").replaceAll("([a-z]+)([A-Z]+)", "$1-$2").toLowerCase
+    def toHyphenCase: String = toWords.mkString("-")
+
+    /**
+     * Replaces word barriers with hyphens (and by "hyphens" what is actually meant is "hyphen-minus", ie. U+002D).
+     * {{{
+     * "name".toWords == Seq("name")
+     * "NAME".toWords == Seq("name")
+     * "EpisodeId".toWords == Seq("episode-id")
+     * "beamLYstuff".toWords == Seq("beam-ly-stuff")
+     * "BEAMlySTUFF.toWords "beam-ly-stuff")
+     * "beamLY stuff".toWords == Seq("beam-ly-stuff")
+     * }}}
+     * @return string with word barriers represented with hyphens
+     */
+    def toWords: Seq[String] = {
+      underlying.replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2 $3").replaceAll("([a-z]+)([A-Z]+)", "$1 $2").toLowerCase.split("\\s+")
     }
 
     def toBooleanOption = catching(classOf[IllegalArgumentException]) opt underlying.toBoolean

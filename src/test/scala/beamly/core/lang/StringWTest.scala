@@ -48,6 +48,15 @@ class StringWTest extends Specification {
     "convert a mixed case string to hyphen case" in { "BEAMlySTUFF".toHyphenCase === "beam-ly-stuff" }
   }
 
+  "to words" should {
+    "convert a lowercase string to words" in { "name".toWords === Seq("name") }
+    "convert an uppercase string to words" in { "NAME".toWords === Seq("name") }
+    "convert a mixed case string to words" in { "EpisodeId".toWords === Seq("episode", "id") }
+    "convert a mixed case string to words" in { "beamLYstuff".toWords === Seq("beam", "ly", "stuff") }
+    "convert a mixed case string to words" in { "BEAMlySTUFF".toWords === Seq("beam", "ly", "stuff") }
+    "convert a mixed case string to words" in { "beamLY stuff".toWords === Seq("beam", "ly", "stuff") }
+  }
+
   "toBooleanOption" should {
     "convert true"  in {  "true".toBooleanOption ==== Some(true) }
     "convert false" in { "false".toBooleanOption ==== Some(false) }
