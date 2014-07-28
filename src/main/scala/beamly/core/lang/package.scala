@@ -71,11 +71,11 @@ object `package` {
     /**
      * Replaces word barriers with hyphens (and by "hyphens" what is actually meant is "hyphen-minus", ie. U+002D).
      * {{{
-     * "name".toSnakeCase == "name"
-     * "NAME".toSnakeCase == "name"
-     * "EpisodeId".toSnakeCase == "episode-id"
-     * "beamLYstuff".toSnakeCase == "beam-ly-stuff"
-     * "BEAMlySTUFF.toSnakeCase "beam-ly-stuff"
+     * "name".toHyphenCase == "name"
+     * "NAME".toHyphenCase == "name"
+     * "EpisodeId".toHyphenCase == "episode-id"
+     * "beamLYstuff".toHyphenCase == "beam-ly-stuff"
+     * "BEAMlySTUFF.toHyphenCase "beam-ly-stuff"
      * }}}
      * @return string with word barriers represented with hyphens
      */
