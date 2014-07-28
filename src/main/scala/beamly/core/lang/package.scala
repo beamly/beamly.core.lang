@@ -68,6 +68,21 @@ object `package` {
       underlying.replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2_$3").replaceAll("([a-z]+)([A-Z]+)", "$1_$2").toLowerCase
     }
 
+    /**
+     * Replaces word barriers with hyphens (and by "hyphens" what is actually meant is "hyphen-minus", ie. U+002D).
+     * {{{
+     * "name".toHyphenCase == "name"
+     * "NAME".toHyphenCase == "name"
+     * "EpisodeId".toHyphenCase == "episode-id"
+     * "beamLYstuff".toHyphenCase == "beam-ly-stuff"
+     * "BEAMlySTUFF.toHyphenCase "beam-ly-stuff"
+     * }}}
+     * @return string with word barriers represented with hyphens
+     */
+    def toHyphenCase: String = {
+      underlying.replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2-$3").replaceAll("([a-z]+)([A-Z]+)", "$1-$2").toLowerCase
+    }
+
     def toBooleanOption = catching(classOf[IllegalArgumentException]) opt underlying.toBoolean
     def toByteOption    = catching(classOf[NumberFormatException]) opt underlying.toByte
     def toShortOption   = catching(classOf[NumberFormatException]) opt underlying.toShort
