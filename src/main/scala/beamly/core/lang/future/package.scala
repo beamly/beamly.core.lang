@@ -41,15 +41,12 @@ object `package` {
    *
    * '''Note''': if the function throws an exception, it will not be caught or fail the future.
    *
-   * @usecase promising[A](f: Promise[A] => Any): Future[A]
+   * Example:
+   *    {{{
+   *      promising[A](f: Promise[A] => Any): Future[A]
+   *    }}}
    *
    *    Creates a promise, uses the provided function to fulfil the promise and then returns the future of the promise.
-   *
-   *    '''Note''': if the function throws an exception, it will not be caught or fail the future.
-   *
-   *    @param f The function used to fulfil the promise
-   *    @tparam A The type returned
-   *    @return Future returned from the value
    *
    * @tparam A The type returned
    * @return Future returned from the value
