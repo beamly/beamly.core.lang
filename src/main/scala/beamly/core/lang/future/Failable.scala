@@ -17,21 +17,21 @@ object Failable {
   def apply[M[_, _]](implicit failable: Failable[M]) = failable
 
   implicit object FutureEitherFailable extends Failable[FutureEither] {
-    def success[L, R](r: R) = Future.successful(Right(r))
-    def failure[L, R](l: L) = Future.successful(Left(l))
+    def success[L, R](r: R): Future[Right[Nothing, R]] = Future.successful(Right(r))
+    def failure[L, R](l: L): Future[Left[L, Nothing]]  = Future.successful(Left(l))
   }
 
   implicit object FutureIdFailable extends Failable[FutureId] {
-    def success[L, R](r: R) = Future.successful(r)
-    def failure[L, R](l: L) = Future.failed(l match {
+    def success[L, R](r: R): Future[R]       = Future.successful(r)
+    def failure[L, R](l: L): Future[Nothing] = Future.failed(l match {
       case t: Throwable => t: Throwable
       case _            => new RuntimeException(l.toString)
     })
   }
 
   implicit object IdFailable extends Failable[Id] {
-    def success[L, R](r: R) = r
-    def failure[L, R](l: L) = l match {
+    def success[L, R](r: R): R       = r
+    def failure[L, R](l: L): Nothing = l match {
       case t: Throwable => throw t
       case _            => sys.error(l.toString)
     }
