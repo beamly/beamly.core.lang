@@ -48,14 +48,6 @@ class StringWTest extends Specification {
     "convert a mixed case string to hyphen case" in { "BEAMlySTUFF".toHyphenCase === "beam-ly-stuff" }
   }
 
-  "replace word boundary" should {
-    "replace word boundaries in a lowercase string" in { "name".replaceWordBoundary("|") === "name" }
-    "replace word boundaries in an uppercase string" in { "NAME".replaceWordBoundary("|") === "name" }
-    "replace word boundaries in a mixed case string" in { "EpisodeId".replaceWordBoundary("|") === "episode|id" }
-    "replace word boundaries in a mixed case string" in { "beamLYstuff".replaceWordBoundary("|") === "beam|ly|stuff" }
-    "replace word boundaries in a mixed case string" in { "BEAMlySTUFF".replaceWordBoundary("|") === "beam|ly|stuff" }
-  }
-
   "toBooleanOption" should {
     "convert true"  in {  "true".toBooleanOption ==== Some(true) }
     "convert false" in { "false".toBooleanOption ==== Some(false) }

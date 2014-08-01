@@ -87,11 +87,11 @@ object `package` {
      * "NAME".replaceWordBoundary("|") == "name"
      * "EpisodeId".replaceWordBoundary("|") == "episode|id"
      * "beamLYstuff".replaceWordBoundary("|") == "beam|ly|stuff"
-     * "BEAMlySTUFF.replaceWordBoundary("|") "beam-ly-stuff"
+     * "BEAMlySTUFF.replaceWordBoundary("|") "beam|ly|stuff"
      * }}}
      * @return string with word barriers represented with hyphens
      */
-    def replaceWordBoundary(replacementString: String) = {
+    private def replaceWordBoundary(replacementString: String): String = {
       underlying
         .replaceAll("([A-Z]+)([A-Z])([a-z]+)", "$1$2" + replacementString + "$3")
         .replaceAll("([a-z]+)([A-Z]+)", "$1" + replacementString + "$2")
