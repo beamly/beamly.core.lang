@@ -71,9 +71,6 @@ pomExtra :=
 // Import default settings. This changes `publishTo` settings to use the Sonatype repository and adds several commands for publishing.
 sonatypeSettings
 
-// Your profile name of the sonatype account. The default is the same with the organization
-profileName := "beamly"
-
 aetherSettings
 
 releaseSettings
