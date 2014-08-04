@@ -7,7 +7,7 @@ object WithNullDefault {
   implicit def toWithNullDefault[A <: AnyRef](a: A) = new WithNullDefault[A](a)
 }
 
-final class WithNullDefault[A <: AnyRef](private val underlying: A) extends AnyVal {
+final class WithNullDefault[A <: AnyRef](val underlying: A) extends AnyVal {
 
   @inline
   def withNullDefault[B >: A](default: => B): B = {
