@@ -10,9 +10,9 @@ name := "beamly-core-lang"
 
 organization := "com.beamly"
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.2"
 
-crossScalaVersions := Seq("2.11.1", "2.10.4")
+crossScalaVersions := Seq("2.11.2", "2.10.4")
 
 scalacOptions := Seq("-optimize", "-deprecation", "-unchecked", "-encoding", "utf8", "-Yinline-warnings", "-target:jvm-1.6", "-feature", "-Xlint", "-Ywarn-value-discard")
 
@@ -20,11 +20,11 @@ fork in Test := true
 
 libraryDependencies <++= scalaVersion { sv =>
   Seq(
-    "org.specs2" %% "specs2" % "2.3.11" % "test",
+    "org.specs2" %% "specs2" % "2.4" % "test",
     "org.scala-lang" % "scala-reflect" % sv,
-    compilerPlugin("org.scalamacros" %% "paradise" % "2.0.0" cross CrossVersion.full)
+    compilerPlugin("org.scalamacros" %% "paradise" % "2.0.1" cross CrossVersion.full)
   ) ++ (CrossVersion partialVersion sv collect {
-    case (2, 10) => "org.scalamacros" %% "quasiquotes" % "2.0.0"
+    case (2, 10) => "org.scalamacros" %% "quasiquotes" % "2.0.1"
   })
 }
 
