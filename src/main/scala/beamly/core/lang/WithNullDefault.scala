@@ -1,5 +1,7 @@
 package beamly.core.lang
 
+import scala.language.implicitConversions
+
 object WithNullDefault {
   @inline
   implicit def toWithNullDefault[A <: AnyRef](a: A) = new WithNullDefault[A](a)

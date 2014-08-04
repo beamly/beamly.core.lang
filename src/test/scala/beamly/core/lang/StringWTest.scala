@@ -39,4 +39,54 @@ class StringWTest extends Specification {
     "convert a mixed case string to snake case" in { "beamLYstuff".toSnakeCase === "beam_ly_stuff" }
     "convert a mixed case string to snake case" in { "BEAMlySTUFF".toSnakeCase === "beam_ly_stuff" }
   }
+
+  "hyphen case" should {
+    "convert a lowercase string to hyphen case" in { "name".toHyphenCase === "name" }
+    "convert an uppercase string to hyphen case" in { "NAME".toHyphenCase === "name" }
+    "convert a mixed case string to hyphen case" in { "EpisodeId".toHyphenCase === "episode-id" }
+    "convert a mixed case string to hyphen case" in { "beamLYstuff".toHyphenCase === "beam-ly-stuff" }
+    "convert a mixed case string to hyphen case" in { "BEAMlySTUFF".toHyphenCase === "beam-ly-stuff" }
+  }
+
+  "toBooleanOption" should {
+    "convert true"  in {  "true".toBooleanOption ==== Some(true) }
+    "convert false" in { "false".toBooleanOption ==== Some(false) }
+    "not convert a" in {     "a".toBooleanOption ==== None }
+  }
+  "toByteOption" should {
+    "convert MinValue" in {  Byte.MinValue.toString.toByteOption ==== Some(Byte.MinValue) }
+    "convert 0"        in {                     "0".toByteOption ==== Some(0.toByte) }
+    "convert MaxValue" in {  Byte.MaxValue.toString.toByteOption ==== Some(Byte.MaxValue) }
+    "not convert a"    in {                     "a".toByteOption ==== None }
+  }
+  "toShortOption" should {
+    "convert MinValue" in {  Short.MinValue.toString.toShortOption ==== Some(Short.MinValue) }
+    "convert 0"        in {                      "0".toShortOption ==== Some(0.toShort) }
+    "convert MaxValue" in {  Short.MaxValue.toString.toShortOption ==== Some(Short.MaxValue) }
+    "not convert a"    in {                      "a".toShortOption ==== None }
+  }
+  "toIntOption" should {
+    "convert MinValue" in {  Int.MinValue.toString.toIntOption ==== Some(Int.MinValue) }
+    "convert 0"        in {                    "0".toIntOption ==== Some(0) }
+    "convert MaxValue" in {  Int.MaxValue.toString.toIntOption ==== Some(Int.MaxValue) }
+    "not convert a"    in {                    "a".toIntOption ==== None }
+  }
+  "toLongOption" should {
+    "convert MinValue" in {  Long.MinValue.toString.toLongOption ==== Some(Long.MinValue) }
+    "convert 0"        in {                     "0".toLongOption ==== Some(0L) }
+    "convert MaxValue" in {  Long.MaxValue.toString.toLongOption ==== Some(Long.MaxValue) }
+    "not convert a"    in {                     "a".toLongOption ==== None }
+  }
+  "toFloatOption" should {
+    "convert MinValue" in {  Float.MinValue.toString.toFloatOption ==== Some(Float.MinValue) }
+    "convert 0"        in {                      "0".toFloatOption ==== Some(0.0f) }
+    "convert MaxValue" in {  Float.MaxValue.toString.toFloatOption ==== Some(Float.MaxValue) }
+    "not convert a"    in {                      "a".toFloatOption ==== None }
+  }
+  "toDoubleOption" should {
+    "convert MinValue" in {  Double.MinValue.toString.toDoubleOption ==== Some(Double.MinValue) }
+    "convert 0"        in {                       "0".toDoubleOption ==== Some(0.0) }
+    "convert MaxValue" in {  Double.MaxValue.toString.toDoubleOption ==== Some(Double.MaxValue) }
+    "not convert a"    in {                       "a".toDoubleOption ==== None }
+  }
 }

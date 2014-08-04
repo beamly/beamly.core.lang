@@ -37,18 +37,21 @@ object `package` {
   val futureNone: Future[Option[Nothing]] = Future successful None
 
   /**
-   * Creates a promise, uses the provided function to fulfil the promise and then returns the future from the promise.
-   * Note that if the function throws an exception that it will not be caught or converted to a failed future.
+   * Returns a Promising[A], which can be applied on a function to fulfil a promise and return a future of that promise.
    *
-   * @param f The function used to fulfil the promise
+   * '''Note''': if the function throws an exception, it will not be caught or fail the future.
+   *
+   * Example:
+   *    {{{
+   *      promising[A](f: Promise[A] => Any): Future[A]
+   *    }}}
+   *
+   *    Creates a promise, uses the provided function to fulfil the promise and then returns the future of the promise.
+   *
    * @tparam A The type returned
    * @return Future returned from the value
    */
-  def promising[A](f: Promise[A] => Unit): Future[A] = {
-    val promise = Promise[A]()
-    f(promise)
-    promise.future
-  }
+  @inline def promising[A]: Promising[A] = new Promising(Promise[A]())
 
   implicit final class FutureBeamlyLang[+A](val underlying: Future[A]) extends AnyVal {
     /**

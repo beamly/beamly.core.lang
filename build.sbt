@@ -33,13 +33,47 @@ incOptions := CrossVersion partialVersion scalaVersion.value collect {
 
 credentials += Credentials(Path.userHome / ".sbt" / ".zeebox_credentials")
 
-publishTo <<= version apply { (v: String) =>
-  if (v endsWith "SNAPSHOT") {
-    Some("zeebox-nexus-snapshots" at "http://nexus.zeebox.com:8080/nexus/content/repositories/snapshots")
-  } else {
-    Some("zeebox-nexus" at "http://nexus.zeebox.com:8080/nexus/content/repositories/releases")
-  }
+publishTo := {
+  val sonatypeBaseUrl = "https://oss.sonatype.org/"
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at sonatypeBaseUrl + "content/repositories/snapshots")
+  else
+    Some("releases"  at sonatypeBaseUrl + "service/local/staging/deploy/maven2")
 }
+
+publishMavenStyle := true
+
+licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+homepage := Some(url("http://beamly.github.io/beamly.core.lang/"))
+
+pomExtra :=
+  <scm>
+    <url>git@github.com:beamly/beamly.core.lang.git</url>
+    <connection>scm:git:git@github.com:beamly/beamly.core.lang.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>derekjw</id>
+      <name>Derek Williams</name>
+      <url>https://github.com/derekjw</url>
+    </developer>
+    <developer>
+      <id>agustafson</id>
+      <name>Andrew Gustafson</name>
+      <url>https://github.com/agustafson</url>
+    </developer>
+    <developer>
+      <id>glenford</id>
+      <name>Glen Ford</name>
+      <url>https://github.com/glenford</url>
+    </developer>
+    <developer>
+      <id>dwijnand</id>
+      <name>Dale Wijnand</name>
+      <url>https://github.com/dwijnand</url>
+    </developer>
+  </developers>
 
 aetherSettings
 
@@ -75,7 +109,7 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  publishArtifacts,
+  publishArtifacts.copy(action = PublishSignedOps.publishSignedAction),
   setNextVersion,
   commitNextVersion,
   pushChanges
@@ -85,7 +119,7 @@ site.settings
 
 ghpages.settings
 
-git.remoteRepo := "git@github.com:zeebox/zeebox.core.lang.git"
+git.remoteRepo := "git@github.com:beamly/beamly.core.lang.git"
 
 site.includeScaladoc()
 
