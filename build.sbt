@@ -4,6 +4,7 @@ import com.typesafe.sbt.SbtSite.site
 import sbtrelease._
 import sbtrelease.ReleasePlugin.ReleaseKeys._
 import sbtrelease.ReleaseStateTransformations._
+import SonatypeKeys._
 
 name := "beamly-core-lang"
 
@@ -32,14 +33,6 @@ incOptions := CrossVersion partialVersion scalaVersion.value collect {
 } getOrElse incOptions.value // name hashing causes StackOverflowError under sbt 0.13.5 & scala 2.10.4, see sbt#1237 & SI-8486
 
 credentials += Credentials(Path.userHome / ".sbt" / ".zeebox_credentials")
-
-publishTo := {
-  val sonatypeBaseUrl = "https://oss.sonatype.org/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at sonatypeBaseUrl + "content/repositories/snapshots")
-  else
-    Some("releases"  at sonatypeBaseUrl + "service/local/staging/deploy/maven2")
-}
 
 publishMavenStyle := true
 
@@ -74,6 +67,12 @@ pomExtra :=
       <url>https://github.com/dwijnand</url>
     </developer>
   </developers>
+
+// Import default settings. This changes `publishTo` settings to use the Sonatype repository and adds several commands for publishing.
+sonatypeSettings
+
+// Your profile name of the sonatype account. The default is the same with the organization
+profileName := "beamly"
 
 aetherSettings
 
