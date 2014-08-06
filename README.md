@@ -7,7 +7,12 @@ Getting beamly.core.lang
 Add the following resolver
 
 and this dependency:
-`"com.beamly" %% "beamly-core-lang" % "1.0.0"`
+`"com.beamly" %% "beamly-core-lang" % "0.5.0"`
+
+Maturity
+========
+We are rapidly approaching 1.0, feel free to provide feedback or raise issues through the github issue tracker.
+
 
 Quick start
 ===========
