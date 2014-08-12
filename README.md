@@ -2,6 +2,8 @@ beamly.core.lang
 ================
 The Beamly core scala language enhancements. This module only depends on the core Scala libraries.
 
+[![Build Status](https://travis-ci.org/beamly/beamly.core.lang.svg?branch=master)](https://travis-ci.org/beamly/beamly.core.lang)
+
 Getting beamly.core.lang
 ========================
 Add this sbt dependency:
