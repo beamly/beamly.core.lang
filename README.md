@@ -7,7 +7,9 @@ The Beamly core scala language enhancements. This module only depends on the cor
 Getting beamly.core.lang
 ========================
 Add this sbt dependency:
+
 `"com.beamly" %% "beamly-core-lang" % "0.5.0"`
+
 or maven dependency:
 ```xml
 <dependency>
