@@ -18,18 +18,14 @@
 
 package beamly.core.lang
 
-import beamly.core.lang.extensions._
-
 import scala.language.experimental.macros
 import scala.language.implicitConversions
 
-import java.util.concurrent.atomic.AtomicReference
-import scala.util.{Try, Failure, Success}
-import scala.annotation.tailrec
-import scala.concurrent.Future
-import scala.{PartialFunction => =?>}
+import beamly.core.lang.extensions._
+
 import scala.reflect.macros.Context
-import scala.util.control.Exception.catching
+import scala.util.Try
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * Useful additions to already existing Scala and Java classes. Should not include any
