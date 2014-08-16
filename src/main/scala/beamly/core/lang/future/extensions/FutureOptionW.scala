@@ -17,11 +17,11 @@ final class FutureOptionW[+A](val underlying: Future[Option[A]]) extends AnyVal 
    * @return New future option with mapped some value
    */
   @inline
-  def mapOpt[B](f: A => B)(implicit executor: ExecutionContext): Future[Option[B]] =
+  def mapOption[B](f: A => B)(implicit executor: ExecutionContext): Future[Option[B]] =
     underlying map (_ map f)
 
   @inline
-  def flatMapOpt[B](f: A => Future[Option[B]])(implicit executor: ExecutionContext): Future[Option[B]] =
+  def flatMapOption[B](f: A => Future[Option[B]])(implicit executor: ExecutionContext): Future[Option[B]] =
     underlying flatMap (_ map f getOrElse futureNone)
 
   /**
@@ -42,4 +42,14 @@ final class FutureOptionW[+A](val underlying: Future[Option[A]]) extends AnyVal 
     }
     promise.future
   }
+
+  // Deprecated
+
+  @inline
+  @deprecated("Use mapOption", "0.6.0")
+  def mapOpt[B](f: A => B)(implicit executor: ExecutionContext): Future[Option[B]] = mapOption(f)
+
+  @inline
+  @deprecated("Use flatMapOption", "0.6.0")
+  def flatMapOpt[B](f: A => Future[Option[B]])(implicit executor: ExecutionContext): Future[Option[B]] = flatMapOption(f)
 }

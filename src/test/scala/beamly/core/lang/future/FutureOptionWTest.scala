@@ -19,27 +19,26 @@ package beamly.core.lang.future
 
 
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 import org.specs2.mutable.Specification
 
 class FutureOptionWTest extends Specification {
   "future option" should {
     "map some values" in {
-      Future(Some(2)).mapOpt(_ + 1).get must beSome(3)
+      Future(Some(2)).mapOption(_ + 1).get must beSome(3)
     }
 
     "map none values" in {
       val opt: Option[Int] = None
-      Future(opt).mapOpt(_ + 1).get must beNone
+      Future(opt).mapOption(_ + 1).get must beNone
     }
 
     "flatMap some values" in {
-      Future(Some(2)).flatMapOpt(i => Future(Some(i + 1))).get must beSome(3)
+      Future(Some(2)).flatMapOption(i => Future(Some(i + 1))).get must beSome(3)
     }
 
     "flatMap none values" in {
       val opt: Option[Int] = None
-      Future(opt).flatMapOpt(i => Future(Some(i + 1))).get must beNone
+      Future(opt).flatMapOption(i => Future(Some(i + 1))).get must beNone
     }
 
     "return the result from the first future if this future returns something" in {
