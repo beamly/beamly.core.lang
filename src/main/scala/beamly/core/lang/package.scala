@@ -43,6 +43,9 @@ object `package` {
   final def nil[T]: List[T] = Nil
 
   @inline
+  implicit def anyBeamlyLang[A](underlying: A): AnyW[A] = new AnyW[A](underlying)
+
+  @inline
   implicit def stringBeamlyLang(underlying: String): StringW = new StringW(underlying)
 
   @inline
