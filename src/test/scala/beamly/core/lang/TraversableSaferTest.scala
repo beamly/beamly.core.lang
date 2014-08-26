@@ -2,7 +2,7 @@ package beamly.core.lang
 
 import org.specs2.mutable._
 
-class TraversableWithMaxOptionTest extends Specification {
+class TraversableSaferTest extends Specification {
   "maxOption" >> {
     "empty sequence" >> {
       Seq[Int]().maxOption ==== None
